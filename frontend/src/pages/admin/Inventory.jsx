@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -125,16 +126,20 @@ const Inventory = () => {
   const handleStockUpdate = async (e) => {
     e.preventDefault();
     try {
+      // Convert type to isAddition boolean (backend expects: isAddition = true for add, false for remove)
+      const isAddition = stockForm.type === 'add';
+      
       await productService.updateStock({
-        product_id: stockForm.product.id,
-        godown_id: 1,
+        productId: stockForm.product.id,
+        godownId: 1,
         quantity: parseInt(stockForm.quantity),
-        type: stockForm.type
+        isAddition: isAddition
       });
       toast.success('Stock updated successfully');
       setStockModal({ show: false, product: null });
       fetchData();
     } catch (error) {
+      console.error('Stock update error:', error);
       toast.error('Failed to update stock');
     }
   };
