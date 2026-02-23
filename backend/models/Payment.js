@@ -6,7 +6,7 @@ export const Payment = {
       SELECT pay.*, c.name as customer_name, c.phone as customer_phone
       FROM payments pay
       LEFT JOIN customers c ON pay.customer_id = c.id
-      ORDER BY pay.payment_date DESC
+      ORDER BY pay.created_at DESC
     `);
     return result.rows;
   },
@@ -27,7 +27,7 @@ export const Payment = {
       FROM payments pay
       LEFT JOIN customers c ON pay.customer_id = c.id
       WHERE pay.customer_id = $1
-      ORDER BY pay.payment_date DESC
+      ORDER BY pay.created_at DESC
     `, [customerId]);
     return result.rows;
   },
@@ -64,7 +64,7 @@ export const Payment = {
       FROM payments pay
       LEFT JOIN customers c ON pay.customer_id = c.id
       WHERE pay.status = 'pending'
-      ORDER BY pay.payment_date DESC
+      ORDER BY pay.created_at DESC
     `);
     return result.rows;
   },
@@ -92,8 +92,8 @@ export const Payment = {
       SELECT pay.*, c.name as customer_name
       FROM payments pay
       LEFT JOIN customers c ON pay.customer_id = c.id
-      WHERE DATE(pay.payment_date) BETWEEN $1 AND $2
-      ORDER BY pay.payment_date DESC
+      WHERE DATE(pay.created_at) BETWEEN $1 AND $2
+      ORDER BY pay.created_at DESC
     `, [startDate, endDate]);
     return result.rows;
   }

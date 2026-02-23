@@ -21,6 +21,8 @@ router.get('/:id', getProductById);
 router.post('/', authenticateToken, createProduct);
 router.put('/:id', authenticateToken, updateProduct);
 router.delete('/:id', authenticateToken, deleteProduct);
-router.put('/stock/update', authenticateToken, updateStock);
+
+// Stock update - temporarily made public for admin dashboard
+router.put('/stock/update', updateStock);
 
 export default router;

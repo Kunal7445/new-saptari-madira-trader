@@ -75,12 +75,12 @@ export const getBalanceSheet = async (req, res) => {
       AND DATE(created_at) BETWEEN $1 AND $2
     `, [start, end]);
     
-    // Get payments received
+    // Get payments received (using created_at instead of payment_date)
     const paymentsReceived = await pool.query(`
       SELECT COALESCE(SUM(amount), 0) as total
       FROM payments
       WHERE status = 'paid'
-      AND DATE(payment_date) BETWEEN $1 AND $2
+      AND DATE(created_at) BETWEEN $1 AND $2
     `, [start, end]);
     
     // Get pending payments

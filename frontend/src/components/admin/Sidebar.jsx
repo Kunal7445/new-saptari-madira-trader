@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
   FiHome, FiPackage, FiShoppingCart, FiUsers, FiDollarSign, 
-  FiBarChart2, FiFileText, FiLogOut 
+  FiBarChart2, FiFileText, FiLogOut, FiExternalLink 
 } from 'react-icons/fi';
 
 const Sidebar = () => {
@@ -24,8 +24,8 @@ const Sidebar = () => {
     { name: 'Balance Sheet', path: '/admin/balance-sheet', icon: FiFileText },
   ];
 
-  // View Website link to go to main home page
-  const homeLink = { name: 'View Website', path: '/', icon: FiHome };
+  // View Website link to go to main home page (opens in same tab)
+  const homeLink = { name: 'View Website', path: '/', icon: FiExternalLink };
 
   return (
     <div className="fixed left-0 top-0 bottom-0 w-64 bg-dark-800 border-r border-dark-700 flex flex-col">
@@ -59,11 +59,9 @@ const Sidebar = () => {
           </NavLink>
         ))}
         
-        {/* View Website Link - Goes to main home page */}
+        {/* View Website Link - Opens in same tab */}
         <a
           href="/"
-          target="_blank"
-          rel="noopener noreferrer"
           className="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 text-green-400 hover:bg-green-600/20 hover:text-green-400"
         >
           <homeLink.icon size={20} />

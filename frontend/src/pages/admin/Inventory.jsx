@@ -124,14 +124,22 @@ const Inventory = () => {
   };
 
   const handleStockUpdate = async (e) => {
-    e.preventDefault();
     try {
+      e.preventDefault();
       // Convert type to isAddition boolean (backend expects: isAddition = true for add, false for remove)
       const isAddition = stockForm.type === 'add';
       
+      // Use stockModal.product instead of stockForm.product
+      const productId = stockModal.product?.id;
+      const godownId = 1; // Default godown
+      
+      if (!productId) {
+        throw new Error('Product ID not found');
+      }
+      
       await productService.updateStock({
-        productId: stockForm.product.id,
-        godownId: 1,
+        productId: productId,
+        godownId: godownId,
         quantity: parseInt(stockForm.quantity),
         isAddition: isAddition
       });

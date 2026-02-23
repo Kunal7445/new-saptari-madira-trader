@@ -68,12 +68,15 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
-            <Link
-              to="/login"
+            {/* Admin Login - Opens in new tab */}
+            <a
+              href="/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200"
             >
               Admin Login
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -110,13 +113,16 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/login"
+              {/* Admin Login - Opens in new tab */}
+              <a
+                href="/login"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block w-full text-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Admin Login
-              </Link>
+              </a>
             </div>
           </motion.div>
         )}
