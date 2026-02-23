@@ -20,10 +20,17 @@ const Dashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
-      const data = await reportService.getDashboardStats();
-      setStats(data);
+      const response = await reportService.getDashboardStats();
+      setStats({
+        totalProducts: response?.totalProducts || 0,
+        totalOrders: response?.totalOrders || 0,
+        totalCustomers: response?.totalCustomers || 0,
+        totalRevenue: response?.totalRevenue || 0,
+        pendingPayments: response?.pendingPayments || 0,
+        lowStockItems: Array.isArray(response?.lowStockItems) ? response.lowStockItems : []
+      });
     } catch (error) {
-      // Use sample data for demo
+      console.error('Failed to fetch dashboard stats:', error);
       setStats({
         totalProducts: 156,
         totalOrders: 89,
@@ -41,10 +48,10 @@ const Dashboard = () => {
   };
 
   const statCards = [
-    { title: 'Total Products', value: stats.totalProducts, icon: FiPackage, color: 'red', change: '+12%' },
-    { title: 'Total Orders', value: stats.totalOrders, icon: FiShoppingCart, color: 'blue', change: '+8%' },
-    { title: 'Total Customers', value: stats.totalCustomers, icon: FiUsers, color: 'green', change: '+5%' },
-    { title: 'Total Revenue', value: `Rs. ${(stats.totalRevenue / 100000).toFixed(1)}L`, icon: FiDollarSign, color: 'orange', change: '+15%' },
+    { title: 'Total Products', value: stats.totalProducts, icon: FiPackage, colorClass: 'bg-red-500/20', iconClass: 'text-red-500', change: '+12%' },
+    { title: 'Total Orders', value: stats.totalOrders, icon: FiShoppingCart, colorClass: 'bg-blue-500/20', iconClass: 'text-blue-500', change: '+8%' },
+    { title: 'Total Customers', value: stats.totalCustomers, icon: FiUsers, colorClass: 'bg-green-500/20', iconClass: 'text-green-500', change: '+5%' },
+    { title: 'Total Revenue', value: `Rs. ${(stats.totalRevenue / 100000).toFixed(1)}L`, icon: FiDollarSign, colorClass: 'bg-orange-500/20', iconClass: 'text-orange-500', change: '+15%' },
   ];
 
   const recentOrders = [
@@ -62,7 +69,6 @@ const Dashboard = () => {
         <p className="text-gray-400 mt-1">Welcome back! Here's what's happening today.</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {statCards.map((stat, index) => (
           <motion.div
@@ -73,8 +79,8 @@ const Dashboard = () => {
             className="glass-dark rounded-xl p-6"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 rounded-lg bg-${stat.color}-500/20 flex items-center justify-center`}>
-                <stat.icon className={`text-${stat.color}-500 text-xl`} />
+              <div className={`w-12 h-12 rounded-lg ${stat.colorClass} flex items-center justify-center`}>
+                <stat.icon className={`${stat.iconClass} text-xl`} />
               </div>
               <span className="text-green-500 text-sm font-medium flex items-center">
                 <FiTrendingUp className="mr-1" />
@@ -88,7 +94,6 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Orders */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,7 +126,6 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Low Stock Alert */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -154,7 +158,6 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      {/* Quick Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

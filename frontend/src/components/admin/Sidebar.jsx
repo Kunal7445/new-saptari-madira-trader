@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
   FiHome, FiPackage, FiShoppingCart, FiUsers, FiDollarSign, 
-  FiTruck, FiBarChart2, FiFileText, FiMenu, FiLogOut 
+  FiBarChart2, FiFileText, FiLogOut 
 } from 'react-icons/fi';
 
 const Sidebar = () => {
@@ -14,20 +14,18 @@ const Sidebar = () => {
     navigate('/login');
   };
 
-const navItems = [
+  const navItems = [
     { name: 'Dashboard', path: '/admin/dashboard', icon: FiHome },
     { name: 'Inventory', path: '/admin/inventory', icon: FiPackage },
     { name: 'Orders', path: '/admin/orders', icon: FiShoppingCart },
     { name: 'Customers', path: '/admin/customers', icon: FiUsers },
     { name: 'Payments', path: '/admin/payments', icon: FiDollarSign },
-    { name: 'Godowns', path: '/admin/godowns', icon: FiTruck },
     { name: 'Reports', path: '/admin/reports', icon: FiBarChart2 },
     { name: 'Balance Sheet', path: '/admin/balance-sheet', icon: FiFileText },
   ];
 
   return (
     <div className="fixed left-0 top-0 bottom-0 w-64 bg-dark-800 border-r border-dark-700 flex flex-col">
-      {/* Header */}
       <div className="h-20 flex items-center px-6 border-b border-dark-700">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 to-orange-500 flex items-center justify-center">
@@ -40,7 +38,6 @@ const navItems = [
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
           <NavLink
@@ -60,7 +57,6 @@ const navItems = [
         ))}
       </nav>
 
-      {/* User Section */}
       <div className="p-4 border-t border-dark-700">
         <div className="flex items-center space-x-3 mb-4 px-4 py-2">
           <div className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center">

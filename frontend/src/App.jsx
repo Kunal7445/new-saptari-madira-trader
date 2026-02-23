@@ -15,7 +15,6 @@ import Inventory from './pages/admin/Inventory';
 import Orders from './pages/admin/Orders';
 import Customers from './pages/admin/Customers';
 import Payments from './pages/admin/Payments';
-import Godowns from './pages/admin/Godowns';
 import Reports from './pages/admin/Reports';
 import BalanceSheet from './pages/admin/BalanceSheet';
 
@@ -71,7 +70,7 @@ function App() {
             <AdminLayout><Dashboard /></AdminLayout>
           </PrivateRoute>
         } />
-<Route path="/admin/inventory" element={
+        <Route path="/admin/inventory" element={
           <PrivateRoute>
             <AdminLayout><Inventory /></AdminLayout>
           </PrivateRoute>
@@ -89,11 +88,6 @@ function App() {
         <Route path="/admin/payments" element={
           <PrivateRoute>
             <AdminLayout><Payments /></AdminLayout>
-          </PrivateRoute>
-        } />
-        <Route path="/admin/godowns" element={
-          <PrivateRoute>
-            <AdminLayout><Godowns /></AdminLayout>
           </PrivateRoute>
         } />
         <Route path="/admin/reports" element={
